@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Hey Mancini... 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Nunito','Fredoka One',cursive;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#ffe4f3 0%,#fdf0ff 40%,#ffe8f8 100%);
+  overflow-x:hidden;
+  padding:1.2rem;
+}
+
+/* EMOJI RAIN */
+.rain{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.drop{position:absolute;top:-60px;opacity:0;animation:falling linear infinite}
+@keyframes falling{
+  0%  {transform:translateY(0) rotate(0deg) scale(1);opacity:0}
+  5%  {opacity:.88}
+  90% {opacity:.88}
+  100%{transform:translateY(110vh) rotate(360deg) scale(.7);opacity:0}
+}
+
+.page{position:relative;z-index:1;width:100%;max-width:430px}
+
+/* MAIN CARD */
+.scene{
+  background:linear-gradient(160deg,#fff5fb 0%,#fffaff 100%);
+  border-radius:40px;
+  border:3px solid #ffb3d9;
+  box-shadow:0 8px 0 #ff80b0,0 16px 40px #ff80b035,inset 0 1px 0 #fff;
+  overflow:hidden;position:relative;
+}
+.scene::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,#fff0f8,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
+/* SKY */
+.sky{
+  background:linear-gradient(180deg,#ffcce8 0%,#ffd9ee 60%,#ffe8f5 100%);
+  height:200px;position:relative;border-radius:37px 37px 0 0;overflow:hidden;
+}
+.arc{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+  border-radius:200px 200px 0 0;border-style:solid;
+  border-color:transparent;border-bottom:none;border-left:none;border-right:none}
+.a1{width:310px;height:155px;border-top:20px solid #ff9ec8;opacity:.25}
+.a2{width:268px;height:134px;border-top:17px solid #ffd6a0;opacity:.23}
+.a3{width:228px;height:114px;border-top:14px solid #a8ebd8;opacity:.22}
+.a4{width:192px;height: 96px;border-top:12px solid #a0cfee;opacity:.22}
+.cloud{position:absolute;background:#fff;border-radius:50px;filter:drop-shadow(0 3px 8px #ffb3d825)}
+.cl1{width:88px;height:30px;top:24px;left:14px;opacity:.93}
+.cl1a{width:56px;height:28px;border-radius:50%;top:10px;left:28px;opacity:.93;background:#fff}
+.cl2{width:72px;height:26px;top:30px;right:16px;opacity:.93}
+.cl2a{width:44px;height:24px;border-radius:50%;top:14px;right:30px;opacity:.93;background:#fff}
+.sun{position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  font-size:42px;animation:sunSpin 12s linear infinite;display:block}
+@keyframes sunSpin{to{transform:translateX(-50%) rotate(360deg)}}
+.floatie{position:absolute;animation:floatie 4s ease-in-out infinite;font-size:22px}
+@keyframes floatie{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-10px) rotate(7deg)}}
+
+/* BEAR */
+.bear-wrap{display:flex;justify-content:center;margin-top:-74px;position:relative;z-index:2}
+
+/* BAND */
+.band{
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(90deg,#ffb3d9,#ffc6e3,#ffb3d9);
+  padding:.38rem 0;font-size:15px;letter-spacing:6px;
+  color:#fff;position:relative;z-index:1;
+}
+
+/* TITLE */
+.title-wrap{text-align:center;padding:.5rem 1rem .25rem;position:relative;z-index:1}
+.title-wrap h1{
+  font-family:'Fredoka One',cursive;font-size:23px;
+  background:linear-gradient(135deg,#ff4fa0,#c2185b);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 2px 6px #ff80b035);line-height:1.35;
+}
+.title-wrap p{font-family:'Nunito',sans-serif;font-size:14px;color:#e91e8c;margin-top:4px}
+
+.strip{display:flex;justify-content:center;gap:6px;padding:.3rem .5rem;font-size:18px;
+  animation:sway 4s ease-in-out infinite;position:relative;z-index:1}
+@keyframes sway{0%,100%{letter-spacing:4px}50%{letter-spacing:8px}}
+
+/* PROGRESS */
+.prog{display:flex;align-items:center;justify-content:center;gap:4px;
+  margin:.5rem 0 .65rem;padding:0 1.4rem;position:relative;z-index:1}
+.pd{width:10px;height:10px;border-radius:50%;background:#ffd6ea;
+  border:2.5px solid #ffb3d9;transition:.4s;flex-shrink:0}
+.pd.on{background:#e91e8c;border-color:#c2185b;transform:scale(1.3)}
+.pl{flex:1;height:2.5px;background:#ffd6ea;border-radius:2px;transition:.5s}
+.pl.on{background:#e91e8c}
+
+/* Q SECTION */
+.q-section{padding:0 1rem 1.2rem;position:relative;z-index:1}
+.q-card{
+  background:#fff;border-radius:28px;border:2.5px solid #ffb3d9;
+  padding:1.3rem 1.1rem 1.2rem;text-align:center;display:none;
+  box-shadow:0 6px 0 #ffb3d9,0 12px 28px #ffb3d918;
+  position:relative;overflow:visible;
+}
+.q-card::after{content:'';position:absolute;inset:0;border-radius:28px;
+  background:linear-gradient(135deg,#fff8fc,transparent 60%);pointer-events:none}
+.q-card.active{display:block;animation:popIn .4s cubic-bezier(.34,1.6,.64,1)}
+@keyframes popIn{0%{transform:scale(.78) translateY(14px);opacity:0}100%{transform:scale(1) translateY(0);opacity:1}}
+
+.q-icon{font-size:46px;display:block;margin-bottom:.35rem;
+  animation:iconBounce 2s ease-in-out infinite}
+@keyframes iconBounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.12)}}
+
+.q-text{font-family:'Fredoka One',cursive;font-size:17px;color:#c2185b;
+  margin-bottom:1.1rem;line-height:1.6}
+
+/* ── BUTTON LAYOUT ──
+   Two equal-width buttons side by side.
+   YES is static. NO is absolute inside .arena so it can move freely
+   WITHOUT ever going into the YES half (left 50%).
+*/
+.arena{
+  position:relative;
+  height:90px;
+  display:flex;
+  align-items:center;
+  overflow:visible;
+}
+
+/* shared look */
+.btn{
+  height:46px;
+  border-radius:50px;
+  font-family:'Fredoka One',cursive;
+  font-size:14px;
+  cursor:pointer;
+  white-space:nowrap;
+  text-align:center;
+  line-height:46px;
+  padding:0 14px;
+}
+
+/* YES — occupies left half, static */
+.btn-yes{
+  position:relative;
+  width:calc(50% - 5px);
+  margin-right:5px;
+  border:none;
+  background:linear-gradient(135deg,#ff6faa,#e91e8c);
+  color:#fff;
+  box-shadow:0 5px 0 #a01060,0 8px 20px #e91e8c40;
+  transition:transform .15s,box-shadow .15s;
+  flex-shrink:0;
+}
+.btn-yes:hover{transform:scale(1.08) translateY(-3px);box-shadow:0 8px 0 #a01060,0 12px 28px #e91e8c50}
+.btn-yes:active{transform:scale(.95) translateY(2px);box-shadow:0 2px 0 #a01060}
+
+/* NO — absolutely positioned, confined to RIGHT half only */
+.btn-nope{
+  position:absolute;
+  /* start: right half, vertically centered */
+  left:calc(50% + 5px);
+  top:3px;
+  width:calc(50% - 5px);
+  border:2.5px solid #ffb3d9;
+  background:linear-gradient(135deg,#fff0f8,#ffe4f2);
+  color:#e91e8c;
+  box-shadow:0 5px 0 #ffb3d9,0 8px 20px #ffb3d930;
+  /* smooth glide on flee */
+  transition:left .07s cubic-bezier(.15,1.4,.35,1), top .07s cubic-bezier(.15,1.4,.35,1);
+  z-index:2;
+  user-select:none;
+}
+
+/* FINAL */
+.final-card{
+  background:linear-gradient(145deg,#fff0f8,#fce4ec);
+  border-radius:28px;border:2.5px solid #f48fb1;
+  padding:1.6rem 1.1rem 1.3rem;text-align:center;display:none;
+  box-shadow:0 6px 0 #f48fb1,0 12px 28px #f48fb128;
+}
+.final-card.show{display:block;animation:popIn .5s cubic-bezier(.34,1.6,.64,1)}
+.bigheart{font-size:4rem;display:block;margin-bottom:.4rem;
+  animation:hbeat 1s ease-in-out infinite}
+@keyframes hbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.28)}28%{transform:scale(1)}42%{transform:scale(1.2)}70%{transform:scale(1)}}
+.final-card h2{font-family:'Fredoka One',cursive;font-size:22px;color:#c2185b;margin-bottom:.55rem}
+.final-card p{font-family:'Nunito',sans-serif;font-size:15px;color:#e91e8c;line-height:2.1}
+.final-row{margin-top:.8rem;font-size:22px;letter-spacing:5px;animation:sway 3s infinite}
+
+/* HEART CLICK BURST */
+.heart-burst{position:fixed;pointer-events:none;z-index:999;font-size:22px;
+  animation:hburst .8s ease-out forwards}
+@keyframes hburst{0%{opacity:1;transform:scale(1) translateY(0)}100%{opacity:0;transform:scale(1.8) translateY(-40px)}}
+
+.bot{background:linear-gradient(90deg,#ffc2e0,#ffd6ea,#ffc2e0);
+  padding:.5rem;text-align:center;font-size:16px;letter-spacing:5px}
+</style>
+</head>
+<body>
+
+<div class="rain" id="rain"></div>
+
+<div class="page"><div class="scene">
+
+  <div class="sky">
+    <div class="arc a1"></div><div class="arc a2"></div>
+    <div class="arc a3"></div><div class="arc a4"></div>
+    <div class="cloud cl1"></div><div class="cloud cl1a"></div>
+    <div class="cloud cl2"></div><div class="cloud cl2a"></div>
+    <span class="sun">🌸</span>
+    <div class="floatie" style="top:96px;left:13px;animation-delay:0s">🦋</div>
+    <div class="floatie" style="top:90px;right:11px;animation-delay:1.2s">🌈</div>
+    <div class="floatie" style="top:115px;left:60px;font-size:17px;animation-delay:.6s">💫</div>
+    <div class="floatie" style="top:112px;right:58px;font-size:17px;animation-delay:1.7s">✨</div>
+    <div class="floatie" style="top:128px;left:110px;font-size:14px;animation-delay:.3s">⭐</div>
+    <div class="floatie" style="top:126px;right:108px;font-size:14px;animation-delay:1s">💕</div>
+  </div>
+
+  <!-- BEAR -->
+  <div class="bear-wrap">
+    <svg width="158" height="158" viewBox="0 0 158 158">
+      <ellipse cx="79" cy="148" rx="46" ry="10" fill="#ffb3d430"/>
+      <ellipse cx="44" cy="64" rx="24" ry="22" fill="#f8bbd9"/>
+      <ellipse cx="114" cy="64" rx="24" ry="22" fill="#f8bbd9"/>
+      <ellipse cx="44" cy="64" rx="14" ry="13" fill="#fce4ec"/>
+      <ellipse cx="114" cy="64" rx="14" ry="13" fill="#fce4ec"/>
+      <ellipse cx="79" cy="104" rx="44" ry="44" fill="#f8bbd9"/>
+      <ellipse cx="64" cy="84" rx="16" ry="10" fill="#fff" opacity=".18"/>
+      <ellipse cx="56" cy="104" rx="11" ry="7" fill="#ff80b0" opacity=".45"/>
+      <ellipse cx="102" cy="104" rx="11" ry="7" fill="#ff80b0" opacity=".45"/>
+      <ellipse cx="65" cy="86" rx="14" ry="14" fill="#fce4ec"/>
+      <ellipse cx="93" cy="86" rx="14" ry="14" fill="#fce4ec"/>
+      <circle cx="65" cy="86" r="7" fill="#4a0020"/>
+      <circle cx="93" cy="86" r="7" fill="#4a0020"/>
+      <circle cx="67.2" cy="83.5" r="2.5" fill="#fff"/>
+      <circle cx="95.2" cy="83.5" r="2.5" fill="#fff"/>
+      <circle cx="63" cy="88" r="1" fill="#fff" opacity=".6"/>
+      <circle cx="91" cy="88" r="1" fill="#fff" opacity=".6"/>
+      <ellipse cx="79" cy="97" rx="10" ry="7" fill="#f48fb1"/>
+      <circle cx="79" cy="97" r="5.5" fill="#e91e8c"/>
+      <path d="M69 105 Q79 114 89 105" stroke="#880e4f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M58 79 Q65 74 72 79" stroke="#880e4f" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M86 79 Q93 74 100 79" stroke="#880e4f" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <ellipse cx="55" cy="132" rx="17" ry="13" fill="#f8bbd9"/>
+      <ellipse cx="103" cy="132" rx="17" ry="13" fill="#f8bbd9"/>
+      <ellipse cx="79" cy="118" rx="22" ry="18" fill="#fce4ec"/>
+      <rect x="58" y="126" width="42" height="22" rx="11" fill="#ff6faa"/>
+      <text x="79" y="141" text-anchor="middle" font-size="10" fill="#fff" font-family="Fredoka One,cursive">Mancini 💕</text>
+      <path d="M28 60 Q17 51 19 40 Q21 29 33 33" stroke="#f48fb1" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <text x="10" y="33" font-size="18">🌸</text>
+      <path d="M130 60 Q141 51 139 40 Q137 29 125 33" stroke="#f48fb1" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <text x="128" y="33" font-size="18">🌸</text>
+      <text x="79" y="57" text-anchor="middle" font-size="28">🎀</text>
+    </svg>
+  </div>
+
+  <div class="band">🌸 💖 🎀 💖 🌸 💖 🎀 💖 🌸</div>
+
+  <div class="title-wrap">
+    <h1>✨ Hey Mancini... I have a question 🥺</h1>
+    <p>From Nannnp, with all her heart 💕</p>
+  </div>
+
+  <div class="strip">🍓 🍰 💝 🍰 🍓</div>
+
+  <div class="prog">
+    <div class="pd on" id="pd0"></div><div class="pl" id="pl0"></div>
+    <div class="pd" id="pd1"></div><div class="pl" id="pl1"></div>
+    <div class="pd" id="pd2"></div><div class="pl" id="pl2"></div>
+    <div class="pd" id="pd3"></div><div class="pl" id="pl3"></div>
+    <div class="pd" id="pd4"></div>
+  </div>
+
+  <div class="q-section">
+
+    <!-- Q1 -->
+    <div class="q-card active" id="qs0">
+      <span class="q-icon">🥺</span>
+      <div class="q-text">Do you think Nannnp<br>is kinda cute? 👀</div>
+      <div class="arena" id="ar0">
+        <button class="btn btn-yes" onclick="goStep(1)">Super cute! 😍</button>
+        <button class="btn btn-nope" id="nb0">Not really...</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-card" id="qs1">
+      <span class="q-icon">💌</span>
+      <div class="q-text">Does Mancini have<br>feelings for Nannnp? 🌸</div>
+      <div class="arena" id="ar1">
+        <button class="btn btn-yes" onclick="goStep(2)">Yes I do! 💖</button>
+        <button class="btn btn-nope" id="nb1">Umm... no</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-card" id="qs2">
+      <span class="q-icon">🌙</span>
+      <div class="q-text">Would you want Nannnp<br>by your side... forever? ✨</div>
+      <div class="arena" id="ar2">
+        <button class="btn btn-yes" onclick="goStep(3)">Forever & always ♾️</button>
+        <button class="btn btn-nope" id="nb2">I don't think so</button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-card" id="qs3">
+      <span class="q-icon">🫶</span>
+      <div class="q-text">If Nannnp grabs your hand<br>right now, would you hold on? 🤝</div>
+      <div class="arena" id="ar3">
+        <button class="btn btn-yes" onclick="goStep(4)">Never letting go 💝</button>
+        <button class="btn btn-nope" id="nb3">Maybe not...</button>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-card" id="qs4">
+      <span class="q-icon">💍</span>
+      <div class="q-text">If you were born again,<br>would you still find Nannnp? 🌈</div>
+      <div class="arena" id="ar4">
+        <button class="btn btn-yes" onclick="showFinal()">I'd find her every time! 🌟</button>
+        <button class="btn btn-nope" id="nb4">I'm not sure...</button>
+      </div>
+    </div>
+
+    <!-- FINAL -->
+    <div class="final-card" id="fin">
+      <span class="bigheart">💖</span>
+      <h2>🎊 Mancini, I love you! 🎊</h2>
+      <p>
+        Thank you for being mine 🥹<br>
+        Every single day with you<br>
+        is the best day of my life 🌈<br>
+        — Nannnp loves you so much 💕
+      </p>
+      <div class="final-row">🎀 🍰 💝 🍰 🎀</div>
+    </div>
+
+  </div>
+
+  <div class="bot">🌸 💕 🌸 💕 🌸 💕 🌸</div>
+</div></div>
+
+<script>
+/* ── EMOJI RAIN ── */
+const POOL = ['🌸','💖','✨','🌷','⭐','💕','🍓','🎀','🦋','💫','🌈','🍰','🥰','💝','🌺','🫧'];
+const rainEl = document.getElementById('rain');
+function spawnDrop(){
+  const el = document.createElement('div');
+  el.className = 'drop';
+  el.textContent = POOL[Math.floor(Math.random()*POOL.length)];
+  el.style.cssText = `left:${Math.random()*100}vw;font-size:${13+Math.random()*17}px;animation-duration:${5+Math.random()*6}s;animation-delay:0s;`;
+  rainEl.appendChild(el);
+  setTimeout(()=>el.remove(),13000);
+}
+for(let i=0;i<24;i++) setTimeout(spawnDrop,i*160);
+setInterval(spawnDrop,380);
+
+/* ── PROGRESS ── */
+function updateProg(n){
+  for(let i=0;i<5;i++){
+    document.getElementById('pd'+i).classList.toggle('on',i<=n);
+    if(i<4) document.getElementById('pl'+i).classList.toggle('on',i<n);
+  }
+}
+function goStep(n){
+  document.getElementById('qs'+(n-1)).classList.remove('active');
+  document.getElementById('qs'+n).classList.add('active');
+  updateProg(n);
+  resetNope(n);
+}
+function showFinal(){
+  document.getElementById('qs4').classList.remove('active');
+  document.getElementById('fin').classList.add('show');
+  updateProg(5);
+  burst();
+}
+
+/* ── NOPE BUTTON FLEE ──
+   Moves ALL directions (up/down/left/right) but stays in right half.
+   Teleports instantly on every mousemove — no transition = max speed.
+   Adds random jitter so it feels panicked and impossible to catch.
+*/
+function resetNope(idx){
+  const btn = document.getElementById('nb'+idx);
+  if(!btn) return;
+  btn.style.transition = 'none';
+  btn.style.left = 'calc(50% + 5px)';
+  btn.style.top  = '12px';
+}
+for(let i=0;i<5;i++) resetNope(i);
+
+function initNope(idx){
+  const btn  = document.getElementById('nb'+idx);
+  const arena= document.getElementById('ar'+idx);
+  const card = btn.closest('.q-card');
+  if(!btn||!arena||!card) return;
+
+  let lastX = null, lastY = null;
+
+  function flee(clientX, clientY){
+    const ar  = arena.getBoundingClientRect();
+    const bw  = btn.offsetWidth  || 120;
+    const bh  = btn.offsetHeight || 46;
+    const aw  = ar.width;
+    const ah  = ar.height;
+
+    // pointer relative to arena
+    const px = clientX - ar.left;
+    const py = clientY - ar.top;
+
+    // current btn top-left (parse from style, fallback to start)
+    let curLeft = parseFloat(btn.style.left);
+    let curTop  = parseFloat(btn.style.top);
+    if(isNaN(curLeft)) curLeft = aw/2 + 5;
+    if(isNaN(curTop))  curTop  = 12;
+
+    // btn center
+    const bcx = curLeft + bw/2;
+    const bcy = curTop  + bh/2;
+
+    // flee vector = btn center AWAY from pointer
+    const dx  = bcx - px;
+    const dy  = bcy - py;
+    const len = Math.sqrt(dx*dx + dy*dy) || 1;
+
+    // big jump + random panic jitter so it feels frantic
+    const force  = 180;
+    const jitterX = (Math.random() - 0.5) * 60;
+    const jitterY = (Math.random() - 0.5) * 40;
+
+    let newLeft = bcx + (dx/len)*force + jitterX - bw/2;
+    let newTop  = bcy + (dy/len)*force + jitterY - bh/2;
+
+    // ── CONSTRAINTS ──
+    // horizontally: right half only (no overlap with YES)
+    const minLeft = aw * 0.5 + 4;
+    const maxLeft = aw - bw - 2;
+    // vertically: generous range — button can go well above/below arena
+    const minTop  = -(ah * 0.6);
+    const maxTop  = ah * 0.6;
+
+    newLeft = Math.max(minLeft, Math.min(maxLeft, newLeft));
+    newTop  = Math.max(minTop,  Math.min(maxTop,  newTop));
+
+    // no transition = instant teleport
+    btn.style.transition = 'none';
+    btn.style.left = newLeft + 'px';
+    btn.style.top  = newTop  + 'px';
+
+    lastX = clientX; lastY = clientY;
+  }
+
+  // every mousemove pixel inside card fires flee
+  card.addEventListener('mousemove', e => flee(e.clientX, e.clientY));
+
+  // touch support
+  card.addEventListener('touchmove', e => {
+    e.preventDefault();
+    flee(e.touches[0].clientX, e.touches[0].clientY);
+  },{passive:false});
+  card.addEventListener('touchstart', e => {
+    flee(e.touches[0].clientX, e.touches[0].clientY);
+  },{passive:true});
+
+  // extra panic: if pointer enters btn directly, teleport to far corner instantly
+  btn.addEventListener('mouseenter', e => {
+    const ar  = arena.getBoundingClientRect();
+    const bw  = btn.offsetWidth || 120;
+    const bh  = btn.offsetHeight|| 46;
+    const aw  = ar.width;
+    const ah  = ar.height;
+    // pick corner farthest from pointer
+    const px = e.clientX - ar.left;
+    const candidates = [
+      { l: aw/2+5,      t: -(ah*0.5) },
+      { l: aw-bw-2,     t: -(ah*0.5) },
+      { l: aw/2+5,      t:  ah*0.5   },
+      { l: aw-bw-2,     t:  ah*0.5   },
+    ];
+    // pick candidate farthest from pointer
+    let best = candidates[0], bestD = -1;
+    candidates.forEach(c => {
+      const cx = c.l+bw/2, cy = c.t+bh/2;
+      const d  = Math.abs(cx-px) + Math.abs(cy-(e.clientY-ar.top));
+      if(d>bestD){ bestD=d; best=c; }
+    });
+    btn.style.transition = 'none';
+    btn.style.left = best.l+'px';
+    btn.style.top  = best.t+'px';
+  });
+
+  btn.addEventListener('click', e => { e.preventDefault(); flee(e.clientX, e.clientY); });
+}
+for(let i=0;i<5;i++) initNope(i);
+
+/* ── HEART CLICK BURST ── */
+document.addEventListener('click', e => {
+  if(e.target.closest('.btn-yes')) return;
+  const hearts = ['💖','💗','💕','✨','🌸'];
+  const el = document.createElement('div');
+  el.className = 'heart-burst';
+  el.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+  el.style.left = e.clientX-12+'px';
+  el.style.top  = e.clientY-12+'px';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),900);
+});
+
+/* ── CONFETTI ── */
+function burst(){
+  const pool=['🌸','💖','✨','🌈','🎀','⭐','💕','🍓','🦋','🍰','💝','🥰'];
+  if(!document.getElementById('cf-kf')){
+    const s=document.createElement('style');s.id='cf-kf';
+    s.textContent='@keyframes cfall{0%{transform:translateY(0) rotate(0) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(540deg) scale(.6);opacity:0}}';
+    document.head.appendChild(s);
+  }
+  for(let i=0;i<90;i++){
+    const c=document.createElement('div');
+    const dur=1.4+Math.random()*2;
+    c.textContent=pool[Math.floor(Math.random()*pool.length)];
+    c.style.cssText=`position:fixed;left:${Math.random()*100}vw;top:-40px;font-size:${14+Math.random()*20}px;pointer-events:none;z-index:999;animation:cfall ${dur}s linear ${Math.random()*.5}s forwards;`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),(dur+.7)*1000);
+  }
+}
+</script>
+</body>
+</html>
